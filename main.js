@@ -9,9 +9,13 @@ const menuMobile = document.querySelector(".mobile-menu");
 
 const carsContainer = document.querySelector(".cards-container")
 
+const OpenProductDetailSecundary = document.querySelector(".product-detail-secundary")
+const CloseProductDetailSecundary = document.querySelector(".product-detail-close")
+
 manuEmail.addEventListener("click", toggleDesktopMenu);
 IconButton.addEventListener("click", toggleMobileMenu);
 menuCarrito.addEventListener("click", toggleCarritoDeCompras)
+CloseProductDetailSecundary.addEventListener("click", closeProductDetailAside)
 
 
 function toggleDesktopMenu(){
@@ -30,7 +34,7 @@ function toggleMobileMenu(){
         aside.classList.add("inactive")
     }
     menuMobile.classList.toggle("inactive");
-
+    closeProductDetailAside();
 }
 
 
@@ -42,7 +46,23 @@ function toggleCarritoDeCompras (){
         menuMobile.classList.add("inactive")
     }
     aside.classList.toggle("inactive");
+
+    const isProductDetileClose = OpenProductDetailSecundary.classList.contains("inactive");
+
+    if(!isProductDetileClose){
+        OpenProductDetailSecundary.classList.add("inactive")
+    }
     //hacer que el menu desaparesca, aun que no es necesario nos sirveria de practica
+}
+
+function openProductDetailAside(){
+    aside.classList.add("inactive");
+    OpenProductDetailSecundary.classList.remove("inactive");
+
+}
+
+function closeProductDetailAside(){
+    OpenProductDetailSecundary.classList.add("inactive");
 }
 
 const productList = [];
@@ -72,6 +92,7 @@ for (product of Array){
 
     const img = document.createElement("img");
     img.setAttribute("src", product.imagen)
+    img.addEventListener("click", openProductDetailAside)
 
     const productInfo = document.createElement("div");
     productInfo.classList.add("product-info");
@@ -81,7 +102,7 @@ for (product of Array){
     const productPrecio = document.createElement("p");
     productPrecio.innerHTML = "$" + product.precio;
     const productName = document.createElement("p");
-    productName.innerHTML = "name:" + product.name;
+    productName.innerHTML = " " + product.name;
 
     productDiv.appendChild(productPrecio)
     productDiv.appendChild(productName)
